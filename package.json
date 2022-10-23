@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "A class based Command / Event handler for discord.js",
   "main": "dist/index.js",
+  "website": "https://github.com/M1nxy/Selene",
   "scripts": {
     "build": "tsc"
   },
