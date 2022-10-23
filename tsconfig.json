@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "moduleResolution": "node",
+    "removeComments": false,
+    "alwaysStrict": false,
+    "pretty": true,
+    "target": "es2022",
+    "lib": ["ESNext", "dom"],
+    "sourceMap": true,
+    "inlineSources": true,
+    "module": "commonjs",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "incremental": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "paths": {
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/__tests__"]
+}
