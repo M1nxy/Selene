@@ -1,9 +1,9 @@
 {
   "name": "discord-selene",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A class based Command / Event handler for discord.js",
   "main": "dist/index.js",
-  "website": "https://github.com/M1nxy/Selene",
+  "homepage": "https://github.com/M1nxy/Selene",
   "scripts": {
     "build": "tsc"
   },
