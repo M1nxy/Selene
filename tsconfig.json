@@ -6,7 +6,7 @@
     "alwaysStrict": false,
     "pretty": true,
     "target": "es2022",
-    "lib": ["ESNext", "dom"],
+    "lib": ["ESNext"],
     "sourceMap": true,
     "inlineSources": true,
     "module": "commonjs",
@@ -21,6 +21,5 @@
     "paths": {
     }
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/__tests__"]
+  "include": ["src/*.ts", "src/**/*.ts"]
 }
