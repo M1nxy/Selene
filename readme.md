@@ -16,7 +16,7 @@ All of the above should be relatively self-explanatory and have sensible typing 
 ### Example Code:
 ```ts
 import { Command, Event, Client } from './index';
-import { Interaction, Message, SlashCommandBuilder } from 'discord.js';
+import { CommandInteraction, Message, SlashCommandBuilder } from 'discord.js';
 require('dotenv').config() // allow for use of .env files
 
 let test = new Command({
@@ -29,7 +29,7 @@ let test = new Command({
 	execute: async (client: Client, message: Message, args: string[]) => { // function to call when command is triggered
 		return { content: 'test' }
 	},
-	slashExecute: async (client: Client, interaction: Interaction) => { // function to call when slash command is triggered
+	slashExecute: async (client: Client, interaction: CommandInteraction) => { // function to call when slash command is triggered
 		return { content: 'test' }
 	}
 })

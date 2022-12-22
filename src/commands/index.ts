@@ -3,7 +3,7 @@ import {
 	BaseMessageOptions,
 	Message,
 	ChannelType,
-	Interaction,
+	CommandInteraction,
 	InteractionReplyOptions,
 	InteractionDeferReplyOptions, SlashCommandBuilder
 } from "discord.js";
@@ -17,7 +17,7 @@ interface CommandOpts {
 	timeout?: number;
 	slashData?: SlashCommandBuilder;
 	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
-	slashExecute?: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
+	slashExecute?: (client: Client, interaction: CommandInteraction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
 }
 
 export class Command implements CommandOpts {
@@ -30,7 +30,7 @@ export class Command implements CommandOpts {
 	timeouts?: Map<string, number> | undefined
 	slashData?: SlashCommandBuilder;
 	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
-	slashExecute: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
+	slashExecute: (client: Client, interaction: CommandInteraction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
 
 	constructor(options: CommandOpts) {
 		this.name = options.name;
