@@ -26,7 +26,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = void 0;
 const djs = __importStar(require("discord.js"));
 const commands_1 = require("../commands");
+const slash_1 = require("../slash");
 const events_1 = require("../events");
+const discord_js_1 = require("discord.js");
 class Client extends djs.Client {
     prefix;
     commands;
@@ -42,10 +44,55 @@ class Client extends djs.Client {
         this.events.push(new events_1.Event({
             name: 'messageCreate',
             execute: (message) => {
-                opts.handlers?.commands || (0, commands_1.defaultHandler)(this, message);
+                opts.handlers?.command || (0, commands_1.defaultHandler)(this, message);
+            }
+        }));
+        this.events.push(new events_1.Event({
+            name: 'interactionCreate',
+            execute: (interaction) => {
+                opts.handlers?.slash || (0, slash_1.defaultSlashHandler)(this, interaction);
             }
         }));
         (0, events_1.eventBinder)(this);
+    }
+    /**
+     * @description Deploy slash commands to a specific server. Should reflect on discord's end instantly, mostly used for testing.
+     * @param guildId The id of the guild that you wish to deploy to.
+     */
+    async deployGuild(guildId) {
+        let commands = this.commands.map(item => {
+            if (!item.slashData)
+                return;
+            return item.slashData.toJSON();
+        }).filter(item => item); // may not pass code review but i like it :eltroll:
+        try {
+            console.log(`Started refreshing ${commands.length} application (/) commands.`);
+            let data = await this.rest.put(discord_js_1.Routes.applicationGuildCommands(this.application.id, guildId), { body: commands });
+            // @ts-ignore
+            console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    /**
+     * @description Deploy slash commands to all servers. May take up to 1 hour to reflect on all regions.
+     */
+    async deployGlobal() {
+        let commands = this.commands.map(item => {
+            if (!item.slashData)
+                return;
+            return item.slashData.toJSON();
+        }).filter(item => item);
+        try {
+            console.log(`Started refreshing ${commands.length} application (/) commands.`);
+            let data = await this.rest.put(discord_js_1.Routes.applicationCommands(this.application.id), { body: commands });
+            // @ts-ignore
+            console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 }
 exports.Client = Client;

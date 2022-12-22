@@ -1,5 +1,5 @@
 import { Client } from "../client";
-import { BaseMessageOptions, Message } from "discord.js";
+import { BaseMessageOptions, Message, Interaction, InteractionReplyOptions, InteractionDeferReplyOptions, SlashCommandBuilder } from "discord.js";
 interface CommandOpts {
     name: string;
     description: string;
@@ -7,7 +7,9 @@ interface CommandOpts {
     category: string;
     usage: string;
     timeout?: number;
-    execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions> | BaseMessageOptions | void;
+    slashData?: SlashCommandBuilder;
+    execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
+    slashExecute?: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
 }
 export declare class Command implements CommandOpts {
     name: string;
@@ -17,7 +19,9 @@ export declare class Command implements CommandOpts {
     usage: string;
     timeout?: number;
     timeouts?: Map<string, number> | undefined;
-    execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions> | BaseMessageOptions | void;
+    slashData?: SlashCommandBuilder;
+    execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
+    slashExecute: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
     constructor(options: CommandOpts);
 }
 export declare type CommandHandler = (client: Client, message: Message) => void;

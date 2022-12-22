@@ -10,14 +10,18 @@ class Command {
     usage;
     timeout;
     timeouts;
+    slashData;
     execute;
+    slashExecute;
     constructor(options) {
         this.name = options.name;
         this.description = options.description;
         this.nsfw = options.nsfw ?? false;
         this.category = options.category;
         this.usage = options.usage;
+        this.slashData = options.slashData ?? undefined;
         this.execute = options.execute;
+        this.slashExecute = options.slashExecute ?? (() => { });
         if (options.timeout) {
             this.timeout = options.timeout;
             this.timeouts = new Map();

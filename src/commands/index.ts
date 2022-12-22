@@ -1,5 +1,12 @@
 import { Client } from "../client";
-import { BaseMessageOptions, Message, ChannelType} from "discord.js";
+import {
+	BaseMessageOptions,
+	Message,
+	ChannelType,
+	Interaction,
+	InteractionReplyOptions,
+	InteractionDeferReplyOptions, SlashCommandBuilder
+} from "discord.js";
 
 interface CommandOpts {
 	name: string;
@@ -8,7 +15,9 @@ interface CommandOpts {
 	category: string;
 	usage: string;
 	timeout?: number;
-	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions> | BaseMessageOptions | void;
+	slashData?: SlashCommandBuilder;
+	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
+	slashExecute?: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
 }
 
 export class Command implements CommandOpts {
@@ -19,7 +28,9 @@ export class Command implements CommandOpts {
 	usage: string;
 	timeout?: number;
 	timeouts?: Map<string, number> | undefined
-	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions> | BaseMessageOptions | void;
+	slashData?: SlashCommandBuilder;
+	execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void;
+	slashExecute: (client: Client, interaction: Interaction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void;
 
 	constructor(options: CommandOpts) {
 		this.name = options.name;
@@ -27,7 +38,9 @@ export class Command implements CommandOpts {
 		this.nsfw = options.nsfw ?? false;
 		this.category = options.category;
 		this.usage = options.usage;
-		this.execute = options.execute
+		this.slashData = options.slashData ?? undefined;
+		this.execute = options.execute;
+		this.slashExecute = options.slashExecute ?? (() => {})
 
 		if(options.timeout) {
 			this.timeout = options.timeout;

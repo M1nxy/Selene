@@ -15,8 +15,9 @@ All of the above should be relatively self-explanatory and have sensible typing 
 
 ### Example Code:
 ```ts
-import { Command, Event, Client } from 'discord-selene';
-import { Message } from 'discord.js';
+import { Command, Event, Client } from './index';
+import { Interaction, Message, SlashCommandBuilder } from 'discord.js';
+require('dotenv').config() // allow for use of .env files
 
 let test = new Command({
 	name: 'test', // name of the command
@@ -24,7 +25,11 @@ let test = new Command({
 	category: 'util', // category for help command (coming soon!)
 	usage: 'test <args>', // code to display on help command (coming soon!)
 	timeout: 30000, // timeout in ms for default command handler
-	execute: async (client: Client, message: Message, args: string[]) => {
+	slashData: new SlashCommandBuilder().setName('test').setDescription('test desc'), // optional data, adds slash command
+	execute: async (client: Client, message: Message, args: string[]) => { // function to call when command is triggered
+		return { content: 'test' }
+	},
+	slashExecute: async (client: Client, interaction: Interaction) => { // function to call when slash command is triggered
 		return { content: 'test' }
 	}
 })
@@ -36,6 +41,7 @@ let ready = new Event({
 		console.log(`Ready as ${client.user?.tag}`)
 	}
 })
+
 
 let client = new Client({
 	prefix: 't!', // prefix for default command handler
@@ -51,5 +57,9 @@ let client = new Client({
 	}
 })
 
-void client.login('TOKEN')
+client.login(process.env.TOKEN).then(() => {
+	//void client.deployGuild("GUILDID") // deploy all slash commmands to a specific guild
+    //void client.deployGlobal() // deploy all slash commands globally, may take up to 1 hour to propagate
+})
+
 ```
