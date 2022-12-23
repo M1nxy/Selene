@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":";;;AAAA,mCAAkC;AAAzB,gGAAA,MAAM,OAAA;AACf,uCAAqC;AAA5B,mGAAA,OAAO,OAAA;AAChB,mCAAiC;AAAxB,+FAAA,KAAK,OAAA","sourcesContent":["export { Client } from './client';\r\nexport { Command } from './commands';\r\nexport { Event } from \"./events\";\r\n"]}
