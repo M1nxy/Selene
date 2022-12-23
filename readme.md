@@ -1,5 +1,5 @@
 # Selene
-A command handler / extension to discord.js with some creature comforts and basic classes to ease the creation of discord bots wih full support for typescript.
+A command handler / extension to discord.js with some creature comforts and basic classes to ease the creation of discord bots with full support for typescript.
 It can be installed with `npm install discord-selene`.
 The three basic classes right now are:
 * Event - An event that can be passed to the client that will automatically be bound to a client event
@@ -15,7 +15,7 @@ All of the above should be relatively self-explanatory and have sensible typing 
 
 ### Example Code:
 ```ts
-import { Command, Event, Client } from './index';
+import { Command, Event, Client } from 'discord-selene';
 import { CommandInteraction, Message, SlashCommandBuilder } from 'discord.js';
 require('dotenv').config() // allow for use of .env files
 
