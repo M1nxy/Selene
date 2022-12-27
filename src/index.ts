@@ -1,3 +1,3 @@
 export { Client } from './client';
-export { Command } from './commands';
-export { Event } from "./events";
+export { Command, CommandBuilder } from './commands';
+export { Event, EventBuilder } from "./events";

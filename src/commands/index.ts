@@ -49,6 +49,61 @@ export class Command implements CommandOpts {
 	}
 }
 
+export class CommandBuilder implements  CommandOpts {
+	public readonly name: string = undefined!;
+	public readonly description: string = undefined!;
+	public readonly nsfw?: boolean = false;
+	public readonly category: string = undefined!;
+	public readonly usage: string = undefined!;
+	public readonly timeout: number = 0!;
+	public readonly timeouts?: Map<string, number> | undefined = undefined!;
+	public readonly slashData?: SlashCommandBuilder;
+	public readonly execute: (client: Client, message: Message, args: string[]) =>
+		Promise<BaseMessageOptions | void> | BaseMessageOptions | void
+	;
+	public readonly slashExecute: (client: Client, interaction: CommandInteraction) =>
+		Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void = (() => {})!
+	;
+	public setName(name: string): this {
+		Reflect.set(this, 'name', name);
+		return this;
+	}
+	public setDescription(description: string): this {
+		Reflect.set(this, 'description', description);
+		return this;
+	}
+	public setNsfw(nsfw: boolean): this {
+		Reflect.set(this, 'nsfw', nsfw);
+		return this;
+	}
+	public setCategory(category: string): this {
+		Reflect.set(this, 'category', category);
+		return this;
+	}
+	public setUsage(usage: string): this {
+		Reflect.set(this, 'usage', usage);
+		return this;
+	}
+	public setTimeout(timeout: number): this {
+		Reflect.set(this, 'timeouts', new Map<string, number>());
+		Reflect.set(this, 'timeout', timeout);
+		return this;
+	}
+	public setSlashData(slashData: SlashCommandBuilder): this {
+		Reflect.set(this, 'slashData', slashData);
+		return this;
+	}
+	public setExecute(execute: (client: Client, message: Message, args: string[]) => Promise<BaseMessageOptions | void> | BaseMessageOptions | void): this {
+		Reflect.set(this, 'execute', execute);
+		return this;
+	}
+	public setSlashExecute(slashExecute: (client: Client, interaction: CommandInteraction) => Promise<InteractionReplyOptions | InteractionDeferReplyOptions | void> | InteractionReplyOptions | InteractionDeferReplyOptions | void): this {
+		Reflect.set(this, 'slashExecute', slashExecute);
+		return this;
+	}
+
+}
+
 export type CommandHandler = (client: Client, message: Message) => void
 
 export const defaultHandler: CommandHandler = async (client: Client, message: Message) => {

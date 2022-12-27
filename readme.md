@@ -8,14 +8,15 @@ The three basic classes right now are:
 
 ### Defaults:
 * command handler - Command handler with error catching, returned message payloads from Commands will automatically be sent as a reply, this can be replaced easily in the client init.
-
+* interaction handler - Interaction handler with error catching, returned message payloads from Commands will automatically be sent as a reply, this can be replaced easily in the client init.
 All of the above should be relatively self-explanatory and have sensible typing which should provide intelligent autofill.
+
 ### Planned Features:
-* Optional Interaction support
+* Help command (possibly)
 
 ### Example Code:
 ```ts
-import { Command, Event, Client } from 'discord-selene';
+import { Command, Event, EventBuilder, Client } from 'discord-selene';
 import { CommandInteraction, Message, SlashCommandBuilder } from 'discord.js';
 require('dotenv').config() // allow for use of .env files
 
@@ -41,12 +42,17 @@ let ready = new Event({
 		console.log(`Ready as ${client.user?.tag}`)
 	}
 })
+let readyBuilt = new EventBuilder().setName('ready').setOnce('true').setExecute(
+	(client: Client) => {
+		console.log(`Ready as ${client.user?.tag}`)
+	}
+)
 
 
 let client = new Client({
 	prefix: 't!', // prefix for default command handler
 	commands: [test], // commands
-	events: [ready], // client events
+	events: [ready, readyBuilt], // client events
 	messages: { // message templates
 		timeout: 'You need to wait {T} seconds before using this command again.',
 		error: 'An error occurred:\n`{E}.`',
