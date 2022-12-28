@@ -27,7 +27,7 @@ export class EventBuilder implements EventOpts {
 		Reflect.set(this, 'name', name);
 		return this;
 	}
-	public setOnce(once: string): this {
+	public setOnce(once: boolean): this {
 		Reflect.set(this, 'once', once);
 		return this;
 	}
