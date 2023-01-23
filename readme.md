@@ -1,3 +1,5 @@
+[![Verified on Openbase](https://badges.openbase.com/js/verified/discord-selene.svg?token=YdLWVKRmZ61sJG78Zy49qSs4YfNwi29muM4KjCnz3pY=)](https://openbase.com/js/discord-selene?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+
 # Selene
 A command handler / extension to discord.js with some creature comforts and basic classes to ease the creation of discord bots with full support for typescript.
 It can be installed with `npm install discord-selene`.
